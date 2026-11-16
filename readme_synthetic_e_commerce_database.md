@@ -47,3 +47,15 @@ Le projet intègre également des requêtes reposant sur des concepts analytique
 * **Chiffre d'affaires cumulé :** Utilisation de la fonction de fenêtrage `SUM() OVER (ORDER BY mois)` pour suivre la progression financière continue.
 * **Moyenne Mobile sur 3 mois :** Lissage des variations mensuelles du chiffre d'affaires via `AVG() OVER (ROWS BETWEEN 2 PRECEDING AND CURRENT ROW)`.
 * **Classements (Ranking) :** Utilisation de `RANK()` pour hiérarchiser dynamiquement les clients et les produits les plus performants.
+
+## 📊 Aperçu du rapport
+
+![Aperçu 1](Page1.png)
+
+![Aperçu 2](Page2.png)
+
+![Aperçu 3](Page3.png)
+
+![Aperçu 4](Page4.png)
+
+![Aperçu 5](Page5.png)
