@@ -1,0 +1,23 @@
+Le Classement (Ranking)
+
+Le classement permet d'attribuer une position ou un rang à chaque ligne en fonction d'une valeur (par exemple, classer les produits ou les clients du plus grand chiffre d'affaires au plus petit).
+
+Les étapes pour l'écrire :
+Choisir la bonne fonction de classement :
+
+ROW_NUMBER() : Donne un numéro unique et séquentiel, même en cas d'égalité.
+
+RANK() : Attribue le même rang en cas d'égalité, mais laisse des "tours" dans les numéros (ex: 1, 2, 2, 4).
+
+DENSE_RANK() : Attribue le même rang en cas d'égalité, mais sans sauter de numéros (ex: 1, 2, 2, 3).
+
+Appliquer la clause OVER (ORDER BY ... DESC) : Précisez selon quelle colonne et dans quel ordre (généralement du plus grand au plus petit) le classement doit s'effectuer.
+
+Exemple de structure :
+SQL
+SELECT 
+    customer_id,
+    total_depense,
+    RANK() OVER (ORDER BY total_depense DESC) AS rang_client
+FROM clients_depenses;
+

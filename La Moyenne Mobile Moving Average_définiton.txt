@@ -1,0 +1,21 @@
+1. La Moyenne Mobile (Moving Average)
+Une moyenne mobile permet lisser des données en calculant la moyenne sur une période glissante (par exemple, la moyenne du mois en cours et des deux mois précédents).
+
+Les étapes pour l'écrire :
+Préparer la base mensuelle : Comme pour le chiffre d'affaires cumulé, commencez par une CTE pour obtenir les données agrégées par mois.
+
+Utiliser la fonction AVG() avec une clause OVER : Appliquez la fonction de moyenne sur votre colonne de valeur.
+
+Définir la fenêtre glissante (ROWS BETWEEN) : À l'intérieur de l'OVER, utilisez la clause ROWS BETWEEN pour préciser combien de lignes avant et après doivent être prises en compte.
+
+SELECT 
+    mois,
+    ca_mensuel,
+    AVG(ca_mensuel) OVER (
+        ORDER BY mois 
+        ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+    ) AS moyenne_mobile_3_mois
+FROM ca_par_periode;
+
+
+

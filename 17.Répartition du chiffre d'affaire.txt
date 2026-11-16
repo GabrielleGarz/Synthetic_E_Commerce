@@ -1,0 +1,37 @@
+17.Répartition du chiffre d'affaires par pays des clients (country)
+
+Objectif : Cartographier la performance commerciale et identifier les pays qui génèrent le plus de revenus et de volume de commandes.
+
+🛠️ Étapes à suivre pour construire la requête
+Identifier les tables sources :
+
+La table customers pour récupérer l'information géographique (country).
+
+La table orders pour récupérer les montants des commandes (total_amount) et les statuts (status).
+
+Établir la relation (Jointure) :
+
+Lier les deux tables via leur clé commune : customer_id (c.customer_id = o.customer_id).
+
+Filtrer les données :
+
+Ne garder que les commandes valides en excluant les annulations (WHERE o.status != 'Cancelled').
+
+Regrouper les données :
+
+Grouper les résultats par pays (GROUP BY c.country).
+
+Calculer les indicateurs clés (Agrégations) :
+
+Nombre de clients uniques par pays : COUNT(DISTINCT c.customer_id)
+
+Nombre de commandes : COUNT(DISTINCT o.order_id)
+
+Chiffre d'affaires cumulé : SUM(o.total_amount) (en castant et arrondissant pour un format propre).
+
+Trier et restituer :
+
+Classer les pays du plus générateur de chiffre d'affaires au moins générateur (ORDER BY chiffre_affaires DESC).
+
+
+

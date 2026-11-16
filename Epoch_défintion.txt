@@ -1,0 +1,14 @@
+En informatique (et particulièrement en SQL), le terme "Epoch" (ou époque Unix) fait référence à une date de référence universelle : 
+le 1er janvier 1970 à 00:00:00 UTC.
+
+À quoi ça sert dans la requête SQL ?
+
+Dans la fonction EXTRACT(EPOCH FROM ...), le mot EPOCH a un rôle bien précis :Il convertit une date ou un intervalle de temps en un nombre total de secondes.
+
+Par exemple, au lieu de manipuler des formats de date complexes, la base de données transforme le moment de l'expédition et le moment de la livraison en un nombre brut de secondes écoulées depuis 1970.
+
+Pourquoi on fait ça ?En soustrayant la date de départ (shipped_at) de la date d'arrivée (delivered_at), on obtient un intervalle de temps.
+
+En lui appliquant EXTRACT(EPOCH), on obtient ce délai en secondes.
+
+C'est pour cela qu'on divise ensuite par 86 400 (le nombre de secondes qu'il y a dans une journée : $24 \text{ heures} \times 60 \text{ minutes} \times 60 \text{ secondes}$) pour transformer ces secondes en jours !

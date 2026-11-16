@@ -1,0 +1,30 @@
+Le Taux de Rétention mesure la capacité de votre e-commerce à conserver ses clients d'une période à une autre 
+
+(par exemple, d'un mois M au mois M+1).
+
+Différence avec la récurrence :Le taux de récurrence indique simplement si un client a commandé plus d'une fois dans toute sa vie.
+
+Le taux de rétention s'inscrit dans le temps : sur l'ensemble des clients qui ont acheté au mois N, 
+quel pourcentage a repassé commande au mois N+1 ?
+
+Les étapes à suivre en SQL :
+
+Identifier le premier mois d'achat (Cohorte) :
+
+Pour chaque client, déterminez sa date de première commande à l'aide de la fonction MIN(order_date).
+
+Obtenir les mois d'activité suivants :
+
+Lister les mois où chaque client a réalisé au moins une commande.
+
+Calculer l'écart en mois :
+Comparer le mois de première commande avec les mois de commandes ultérieures.
+
+Agréger et calculer le ratio :
+Diviser le nombre de clients actifs au mois N+1 par le nombre total de clients ayant débuté au mois N.
+
+Note : utilisation de :
+
+OVER (...) : Transforme la fonction d'agrégation (COUNT) en fonction de fenêtrage. Cela signifie que le calcul est fait "en surimpression" sur l'ensemble des lignes, sans fusionner les lignes entre elles.
+
+PARTITION BY customer_id : Indique à la fonction de regrouper et de calculer le total pour chaque client individuellement. C'est l'équivalent d'un GROUP BY, mais appliqué client par client en arrière-plan.

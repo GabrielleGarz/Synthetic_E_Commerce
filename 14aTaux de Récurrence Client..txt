@@ -1,0 +1,25 @@
+ 14 : le Taux de Récurrence Client. 
+
+Ce KPI est essentiel pour mesurer la fidélité de votre base de clients en déterminant quelle proportion
+ d'entre eux revient effectuer des achats répétés.
+
+Voici les étapes à suivre pour construire cette requête SQL :
+
+1. Compter les commandes par client
+
+Dans une première étape (via une CTE), vous devez lister chaque client (customer_id) et 
+calculer le nombre total de commandes qu'il a passées (COUNT(order_id)).
+
+2. Segmenter les acheteurs (Occasionnels vs Récurrents)Toujours dans votre logique ou via une agrégation globale, 
+vous allez séparer vos clients en deux groupes :
+
+Les clients uniques (1 seule commande).
+Les clients récurrents / fidèles (2 commandes ou plus).
+
+3. Calculer le pourcentage global
+
+Appliquez une formule mathématique pour obtenir le taux :
+
+Taux de récurrence = (Nombre de clients avec >=2 commandes)/(Nombre total de clients uniques)*100
+
+

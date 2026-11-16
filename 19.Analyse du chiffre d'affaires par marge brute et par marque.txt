@@ -1,0 +1,40 @@
+19.Analyse du chiffre d'affaires et de la marge brute par marque (brand)
+
+
+Objectif : Évaluer les performances commerciales et la rentabilité financière de chaque marque vendue sur la plateforme en calculant son chiffre d'affaires net, sa marge brute globale et son taux de marge.
+
+🛠️ Étapes à suivre pour construire la requête
+Identifier les tables sources :
+
+La table products pour récupérer la marque (brand) et le coût unitaire d'achat (unit_cost).
+
+La table order_items pour récupérer les quantités vendues (quantity) et le sous-total de la ligne (line_total).
+
+La table orders pour vérifier le statut de la commande (status).
+
+Établir les jointures :
+
+Lier order_items à products sur product_id.
+
+Lier order_items à orders sur order_id.
+
+Filtrer les commandes valides :
+
+Exclure les annulations et les retours pour ne comptabiliser que le réel encaissé : WHERE o.status NOT IN ('Cancelled', 'Returned').
+
+Calculer les indicateurs au niveau agrégé (GROUP BY p.brand) :
+
+Chiffre d'affaires : SUM(oi.line_total)
+
+Coût total d'achat : SUM(oi.quantity * p.unit_cost)
+
+Marge Brute : SUM(oi.line_total - (oi.quantity * p.unit_cost))
+
+Taux de Marge (%) : (Marge Brute / Chiffre d'Affaires) * 100
+
+Formater et ordonner :
+
+Utiliser le raccourci ::numeric avec ROUND(..., 2) pour des montants et pourcentages propres.
+
+Classer les marques par marge brute décroissante (ORDER BY marge_brute DESC).
+

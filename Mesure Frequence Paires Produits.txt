@@ -1,0 +1,15 @@
+Frequence Paires Produits = 
+VAR ProduitCourant = SELECTEDVALUE('public products'[product_id])
+RETURN
+IF(
+    ISBLANK(ProduitCourant),
+    BLANK(),
+    CALCULATE(
+        DISTINCTCOUNT('public order_items'[order_id]),
+        CALCULATETABLE(
+            VALUES('public order_items'[order_id]),
+            'public order_items'[product_id] = ProduitCourant
+        ),
+        REMOVEFILTERS('public order_items')
+    )
+)

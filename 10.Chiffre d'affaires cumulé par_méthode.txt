@@ -1,0 +1,18 @@
+--10.Chiffre d'affaires cumulé par mois (fonction de fenêtrage)
+
+Pour résoudre ce type de requête impliquant un chiffre d'affaires cumulé par mois (souvent appelé running total en SQL), vous devez utiliser les fonctions de fenêtrage (les window functions).
+
+Voici les étapes à suivre pour construire votre requête :
+
+Agréger les ventes par mois :
+Créez une première étape (souvent via une sous-requête ou une CTE avec WITH) pour sommer le chiffre d'affaires (SUM(total_amount)) en regroupant les données par mois (en extrayant l'année et le mois de votre date de commande).
+
+Appliquer la fonction de fenêtrage :
+Utilisez la fonction SUM(...) OVER (...) sur votre résultat mensuel.
+
+Ordonner le cumul :
+À l'intérieur de la clause OVER, utilisez l'instruction ORDER BY pour préciser que le cumul doit se faire chronologiquement, mois après mois.
+
+select
+
+from (select  SUBSTRING(o.order_date::text, 1, 4) AS annee, sum(total_amount) from orders)

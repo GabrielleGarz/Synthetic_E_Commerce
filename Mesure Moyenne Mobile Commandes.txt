@@ -1,0 +1,26 @@
+Moyenne Mobile Commandes = 
+VAR NombrePeriodes = 3 -- Par exemple, sur 3 mois
+RETURN
+AVERAGEX(
+    DATESINPERIOD(
+        'Dim_Date'[Date],             -- Votre table de dates
+        LASTDATE('Dim_Date'[Date]),   
+        -NombrePeriodes,                
+        MONTH                           
+    ),
+    CALCULATE(
+        DISTINCTCOUNT('public orders'[order_id]) -- Utilisation de la table public orders
+    )
+)
+
+
+--Explication :
+
+DATESINPERIOD(
+    'Dim_Date'[Date],            -- 1. La colonne de référence des dates
+    LASTDATE('Dim_Date'[Date]),  -- 2. La date de départ (ou de fin) de la fenêtre
+    -NombrePeriodes,             -- 3. Le nombre de périodes à remonter ou avancer
+    MONTH                        -- 4. L'unité de temps (Mois, Jours, Années...)
+)
+
+La fonction DATESINPERIOD est une fonction intelligente de gestion du temps (Time Intelligence) en DAX. Elle ne calcule pas une valeur par elle-même, mais génère une table de dates (une plage glissante) que l'on donne généralement à l'intérieur d'une fonction d'agrégation comme AVERAGEX ou CALCULATE.

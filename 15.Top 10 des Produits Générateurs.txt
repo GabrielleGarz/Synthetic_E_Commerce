@@ -1,0 +1,33 @@
+15.Top 10 des Produits Générateurs de Chiffre d'Affaires (analyse de Pareto / règle des 80/20). 
+
+Ce KPI permet d'identifier quels articles pèsent le plus lourd dans les revenus de votre e-commerce.
+
+Voici les étapes à suivre pour construire cette requête SQL :
+
+1. Joindre les tables de ventes et de produits
+
+Pour lier un chiffre d'affaires à un produit précis, vous devez croiser la table des produits
+(products) avec les lignes de commandes (order_items), et éventuellement la table des commandes (orders) 
+si nécessaire.
+
+2. Calculer le CA total par produit
+
+Utilisez la fonction d'agrégation SUM() en multipliant la quantité vendue par le prix unitaire 
+(ou en sommant les montants correspondants) pour obtenir le chiffre d'affaires généré par chaque article. 
+
+Regroupez ensuite les résultats par produit (GROUP BY).
+
+3. Trier et limiter les résultats
+
+Triez les résultats du plus grand CA au plus petit (ORDER BY ... DESC).
+
+Utilisez la clause LIMIT 10 (spécifique à PostgreSQL) pour ne garder que les 10 meilleurs produits.
+
+Note :
+
+Comme vous avez fait une jointure avec la table order_items, si une commande contient 3 produits différents, la ligne de cette commande se duplique 3 fois dans les résultats intermédiaires de la requête.
+
+Si vous faites SUM(o.total_amount), SQL va additionner le montant total de la commande... 3 fois pour ce produit ! Résultat : votre chiffre d'affaires par produit sera complètement surévalué.
+
+Comment corriger :
+Pour un chiffre d'affaires par produit, il faut impérativement calculer le montant directement dans les lignes de commande (order_items), généralement en multipliant la quantité par le prix unitaire (quantity * price, selon le nom exact de vos colonnes dans order_items).

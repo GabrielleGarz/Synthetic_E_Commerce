@@ -1,0 +1,36 @@
+16.Délai Moyen de Livraison (Logistique).
+
+Définition
+Ce KPI mesure le temps moyen (en jours) que met votre entreprise pour traiter et expédier (ou livrer) une commande à partir du moment où elle a été passée par le client. 
+
+C'est un indicateur clé de la performance opérationnelle et de la satisfaction client.
+
+Les étapes à suivre en SQL
+
+Identifier les colonnes de dates :
+Repérez vos colonnes de dates dans la table orders (par exemple, la date de commande order_date et la date d'expédition shipped_date ou de livraison delivery_date).
+
+Convertir les formats texte (VARCHAR) en dates :
+Comme vos dates sont stockées sous forme de texte, vous devrez les convertir en type DATE pour pouvoir effectuer des calculs mathématiques (ex: order_date::date).
+
+Calculer l'écart en jours :
+Sous PostgreSQL, soustraire deux dates (date_fin - date_debut) renvoie directement un nombre entier représentant le nombre de jours d'écart.
+
+Calculer la moyenne :
+Utilisez la fonction AVG() sur cet écart pour obtenir le délai moyen global, ou regroupez-le par mois, canal, région si nécessaire.
+
+
+SELECT 
+    o.channel, c.country,
+   -- round(AVG(EXTRACT(EPOCH FROM (NULLIF(delivered_at, '')::TIMESTAMP - NULLIF(shipped_at, '')::TIMESTAMP)) / 86400),1) AS delai_moyen_jours
+round(avg(s.delivered_at::date - s.shipped_at::date),1) as delai_moyen_livraison
+FROM shipments s join orders o on s.order_id = o.order_id
+join customers c on c.customer_id = o.customer_id
+WHERE delivered_at IS NOT NULL 
+  AND delivered_at <> '' 
+  AND shipped_at IS NOT NULL 
+  AND shipped_at <> ''
+and o.order_id is not null
+and o.order_id != ''
+GROUP BY o.channel, c.country
+order by delai_moyen_livraison desc;

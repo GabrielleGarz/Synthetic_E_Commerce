@@ -1,0 +1,37 @@
+Questions to try
+
+1.Monthly revenue and order count
+2.Top 10 customers by lifetime spend
+3.Revenue and gross margin by category
+4.How many customers order once, twice, three times or more?
+5.Return rate by category
+6.Average delivery time by carrier, in days
+7.Average order value by channel and loyalty tier
+8.Share of orders that got free shipping, per year
+9.Products most often bought together
+10.Running total of revenue per month (window function)
+
+
+The starter notebook answers all ten with SQL.
+
+
+
+1.Chiffre d'affaires mensuel et nombre de commandes
+
+2.Top 10 des clients par montant total dépensé (valeur à vie / LTV)
+
+3.Chiffre d'affaires et marge brute par catégorie
+
+4.Combien de clients commandent une fois, deux fois, trois fois ou plus ?
+
+5.Taux de retour par catégorie
+
+6.Délai moyen de livraison par transporteur (en jours)
+
+7.Panier moyen par canal et par niveau de fidélité
+
+8.Part des commandes ayant bénéficié de la livraison gratuite, par an
+
+9.Produits les plus fréquemment achetés ensemble
+
+10.Chiffre d'affaires cumulé par mois (fonction de fenêtrage)

@@ -1,0 +1,44 @@
+Pour identifier les produits les plus fréquemment achetés ensemble (ce qu'on appelle l'analyse du panier d'achat ou Market Basket Analysis), l'objectif est de croiser les articles d'une même commande pour voir quelles paires de produits reviennent le plus souvent.
+
+Voici les indices et les étapes pour construire votre requête SQL :
+
+1. La logique du raisonnement
+Pour comparer des produits achetés ensemble, il faut faire une auto-jointure (self-join) de la table des articles de commande (order_items).
+
+L'idée est de lier la table order_items avec elle-même en utilisant le numéro de commande (order_id).
+
+Cela permet de dire : "Pour une même commande, trouve-moi le produit A et le produit B" (oi1.order_id = oi2.order_id).
+
+2. Les points de vigilance à intégrer dans la requête
+
+--9.Produits les plus fréquemment achetés ensemble
+
+Éviter de comparer un produit avec lui-même :
+Si un client achète le produit X, il ne faut pas compter que le produit X a été acheté avec lui-même (oi1.product_id <> oi2.product_id).
+
+Éviter les doublons inversés (Paire A+B et Paire B+A) :
+Si le produit 1 et le produit 2 sont achetés ensemble, la jointure va lister (1, 2) puis (2, 1). Pour éviter de compter deux fois la même paire, on utilise souvent un opérateur de comparaison stricte sur les identifiants (oi1.product_id < oi2.product_id).
+
+Joindre la table des produits :
+Pour que les résultats soient lisibles (et n'affichent pas seulement des IDs numériques de produits), il faudra faire des jointures avec la table products deux fois : une fois pour nommer le premier produit, et une deuxième fois pour nommer le second.
+
+3. Structure globale (Indices pour coder)
+Le FROM et les JOIN :
+
+order_items oi1
+
+JOIN order_items oi2 ON oi1.order_id = oi2.order_id AND oi1.product_id < oi2.product_id
+
+JOIN products p1 ON oi1.product_id = p1.product_id
+
+JOIN products p2 ON oi2.product_id = p2.product_id
+
+Le SELECT :
+
+Afficher les noms des deux produits (p1.product_name et p2.product_name).
+
+Compter le nombre de fois qu'ils apparaissent ensemble (COUNT(*)).
+
+Le GROUP BY et le ORDER BY :
+
+Grouper par les deux produits et trier par le nombre d'occurrences décroissant (DESC) pour voir les plus fréquents en haut.

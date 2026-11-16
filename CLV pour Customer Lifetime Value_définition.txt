@@ -1,0 +1,13 @@
+La LTV (ou CLV pour Customer Lifetime Value, ou valeur à vie du client en français) est un indicateur clé en analyse de données et en marketing.
+
+Elle mesure la somme totale des revenus (ou des bénéfices) générés par un client auprès d'une entreprise tout au long de sa relation commerciale.
+
+Pourquoi c'est important ?
+
+Identifier les clients stratégiques : Repérer les profils qui apportent le plus de valeur à l'entreprise sur le long terme (comme votre requête Top 10).
+
+Optimiser l'acquisition : Savoir combien vous pouvez dépenser pour acquérir un nouveau client (le Coût d'Acquisition Client ou CAC doit idéalement être nettement inférieur à la LTV).
+
+Fidélisation : Déterminer l'impact des programmes de fidélité (loyalty_tier) sur la rétention et les réachats.Formule simplifiée (dans votre base SQL)
+
+Dans votre requête PostgreSQL, la LTV est calculée au niveau individuel en faisant la somme de tous les achats validés du client :LVT = somme (total_amount)

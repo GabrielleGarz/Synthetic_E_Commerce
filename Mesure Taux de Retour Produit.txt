@@ -1,0 +1,9 @@
+Taux de retour = 
+VAR TotalArticles = COUNTROWS('public returns')
+VAR ArticlesRetournes = 
+    CALCULATE(
+        COUNTROWS('public returns'),
+        'public returns'[status] = "refunded"
+    )
+RETURN
+DIVIDE(ArticlesRetournes, TotalArticles, 0)

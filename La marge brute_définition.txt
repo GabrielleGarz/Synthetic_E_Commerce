@@ -1,0 +1,4 @@
+La marge brute est un indicateur financier fondamental qui mesure ce que l'entreprise gagne réellement sur la vente de ses produits, après avoir déduit le coût direct de fabrication ou d'achat de ces marchandises, mais avant de payer les autres frais (salaires, loyers, marketing, impôts, etc.).Comment on la calcule ?Dans le cadre de votre base e-commerce, elle se calcule de deux manières équivalentes :
+Par article / ligne de commande : Marge Brute = (Chiffre d'affaires - Coût de revient)
+
+Marge Brute = (line_total - (quantity * unit_cost)

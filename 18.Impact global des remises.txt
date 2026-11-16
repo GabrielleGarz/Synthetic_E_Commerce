@@ -1,0 +1,29 @@
+18.Impact global des remises (discount_amount) par mois
+
+Objectif : 
+
+Évaluer l'impact financier des réductions accordées sur les ventes mensuelles (comparer le montant brut, le total des remises, 
+le chiffre d'affaires net et calculer un taux de remise moyen).
+
+🛠️ Étapes à suivre pour construire la requête
+
+Identifier la table source :
+La table orders contient directement toutes les informations nécessaires (order_date, subtotal, discount_amount, total_amount, status)
+
+Extraire le mois à partir du format d'horodatage :Utiliser SUBSTRING(order_date::text, 1, 7) en PostgreSQL pour isoler l'année et le mois (YYYY-MM).
+
+Filtrer les commandes valides :Exclure les commandes annulées et retournées pour ne mesurer l'impact que sur le chiffre d'affaires réel (WHERE status NOT IN ('Cancelled', 'Returned')).
+
+Regrouper les données :
+
+Grouper par mois (GROUP BY SUBSTRING(order_date::text, 1, 7)).
+
+Calculer les indicateurs financiers clés (Agrégations) :
+
+Sous-total brut : SUM(subtotal)
+Total des remises accordées : SUM(discount_amount) as somme_des_remises
+Chiffre d'affaires net : SUM(total_amount)
+Taux de remise moyen (%) : Le rapport entre les remises et le sous-total brut : (Somme des remises\Somme des sous-totaux)*100, en protégeant la division par zéro avec NULLIF.
+
+Trier chronologiquement :
+Classer les résultats du mois le plus ancien au plus récent (ORDER BY mois ASC).
